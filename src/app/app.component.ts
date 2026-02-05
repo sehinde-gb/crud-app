@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { IndexComponent } from "./post/index/index.component";
+import { GlobalLoadingService } from './global-loading.service';
 
 @Component({
     selector: 'app-root',
@@ -12,4 +13,6 @@ import { IndexComponent } from "./post/index/index.component";
 })
 export class AppComponent {
   title = 'crudv17';
+  // Inject the service to access the loading signal
+  loadingService = inject(GlobalLoadingService);
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {  Observable, throwError } from 'rxjs';
@@ -23,6 +23,8 @@ export class PostService {
       'Content-Type': 'application/json'
     })
   }
+
+  isLoading = signal<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }
 
