@@ -332,4 +332,11 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<router-outlet></router-outlet>
+<router-outlet>
+  @if (loadingService.isLoading()) {
+    <div class="global-loader-overlay">
+      <div class="progress-bar"></div>
+      <div class="spinner"></div>
+    </div>
+  }
+</router-outlet>
