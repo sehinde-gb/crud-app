@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Post } from '../post';
 import { PostService } from '../post.service';
-import { GlobalLoadingService } from '../../global-loading.service';
+import { GlobalLoadingService } from '../../services/global-loading.service';
 
 @Component({
   selector: 'app-index',

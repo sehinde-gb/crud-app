@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { IndexComponent } from "./post/index/index.component";
-import { GlobalLoadingService } from './global-loading.service';
+import { GlobalLoadingService } from './services/global-loading.service';
+import { ToastComponent } from './toast/toast.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, IndexComponent]
+    imports: [CommonModule, RouterOutlet,ToastComponent ]
 })
 export class AppComponent {
   title = 'crudv17';

@@ -10,9 +10,17 @@
         <th width="250px">Action</th>
       </tr>
     </thead>
+
+
+    
+
     <tbody>
       @if(postService.isLocalLoading()) {
-        @for (post of postService.getAll() | async; track post.id) {
+        <tr>
+          <td colspan="4" class="text-center">Loading posts...</td>
+        </tr>
+      }  @else {
+        @for (post of posts; track post.id) {
           <tr>
             <td>{{post.id}}</td>
             <td>{{post.title}}</td>
@@ -28,7 +36,7 @@
             <td colspan="4"><p>No posts found.</p></td>
           </tr>
         }
-      }  
+      }
     </tbody>
   </table>
 
