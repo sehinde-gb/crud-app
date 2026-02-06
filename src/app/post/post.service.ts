@@ -34,8 +34,8 @@ export class PostService {
     
     return this.httpClient.get(this.apiURL + '/posts/')
     .pipe(
-      finalize(() => this.isLocalLoading.set(false)),
-      catchError(this.errorHandler)
+      finalize(() => this.isLocalLoading.set(false))
+      
     )
   }
 

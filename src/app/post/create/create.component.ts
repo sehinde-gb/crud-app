@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Router } from '@angular/router';
+import { GlobalLoadingService } from '../../services/global-loading.service';
 
 @Component({
   selector: 'app-create',
@@ -13,15 +14,15 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent {
   form!:FormGroup;
+  public loadingService = inject(GlobalLoadingService); // Inject here
+  private postService = inject(PostService);
+  private route = inject(Router);
 
-  constructor( public postService:PostService, private router:Router){
-
-  }
 
   ngOnInit():void{
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      body:new FormControl('',Validators.required)
+      body: new FormControl('',Validators.required)
     })
   }
 
@@ -31,9 +32,13 @@ export class CreateComponent {
 
   submit(){
     console.log(this.form.value);
+    
+    if (this.form.invalid) return;
+
     this.postService.create(this.form.value).subscribe((res:any)=>{
+      
       alert("Post Created Successfull!.");
-      this.router.navigateByUrl('post/index');
+      this.route.navigateByUrl('post/index');
     })
   }
 }
