@@ -35,10 +35,13 @@ export class CreateComponent {
     
     if (this.form.invalid) return;
 
-    this.postService.create(this.form.value).subscribe((res:any)=>{
-      
-      alert("Post Created Successfull!.");
-      this.route.navigateByUrl('post/index');
-    })
+    this.postService.create(this.form.value).subscribe({
+      next: (res) => {
+        this.route.navigateByUrl('post/index');
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }
