@@ -49,7 +49,7 @@ export class CreateComponent {
       error: (err: HttpErrorResponse) => {
         /* 2. The interceptor has already shown the toast for 401, 403, 500. 
          You only use this block for component specific logic. */
-        //console.error(err);
+        
 
         if (err.status === 400 || err.status === 422) {
           // Special case Validation errors are usually handled locally
@@ -62,5 +62,15 @@ export class CreateComponent {
         }
       }
     });
+  }
+
+  goBack() {
+    // Check if the user has typed anything
+    if (this.form.dirty) {
+      const confirmLeave = confirm('You have unsaved changes. Are you sure you want to go back?');
+      if (!confirmLeave) return; // Stop if they click "Cancel"
+    }
+    
+    this.route.navigateByUrl('/post/index');
   }
 }

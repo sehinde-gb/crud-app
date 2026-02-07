@@ -1,28 +1,47 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Post } from '../post';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalLoadingService } from '../../global-loading.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
 export class ViewComponent {
 
-  id!:number;
-  post!:Post;
 
-  constructor(public postService:PostService, private router:Router, private route:ActivatedRoute){}
+
+  post = signal<any>(null);
+
+  public loadingService = inject(GlobalLoadingService);
+  private postService = inject(PostService);
+  private route = inject(ActivatedRoute);
+
+
 
   ngOnInit():void{
-    this.id = this.route.snapshot.params['postId'];
-    this.postService.find(this.id).subscribe((data:Post)=>{
-      this.post = data;
-    })
+   
+
+      const id = this.route.snapshot.params['postId'];
+
+      // 2. Fetch the data
+      // The loading Interceptor automatically handles the spinner
+      this.postService.find(id).subscribe({
+        next: (data) => {
+          this.post.set(data);
+        },
+        error: (err) => {
+          // Error interceptor handles the toast notification
+        }
+      });
+
+    
   }
 
 }
