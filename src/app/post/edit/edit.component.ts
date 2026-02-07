@@ -56,7 +56,8 @@ export class EditComponent  {
       if (!confirmLeave) return; // Stop if they click "Cancel"
     }
     
-    this.router.navigateByUrl('/post/index');
+    this.router.
+    navigateByUrl('/post/index');
   }
 
     get f(){

@@ -38,8 +38,12 @@ export class CreateComponent {
 
   submit(){
     console.log(this.form.value);
+
+    
     
     if (this.form.invalid) return;
+    // if the hidden field has a value, it's a bot!
+    if (this.form.get('honeypot')?.value) return;
 
     this.postService.create(this.form.value).subscribe({
       next: (res) => {
@@ -62,6 +66,8 @@ export class CreateComponent {
         }
       }
     });
+    
+
   }
 
   goBack() {
